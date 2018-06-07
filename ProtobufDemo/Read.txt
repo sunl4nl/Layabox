@@ -1,0 +1,38 @@
+	
+A) 在Laya TS语言H5项目中使用Protobufjs
+https://blog.csdn.net/sjt223857130/article/details/79658158
+	1.安装
+	npm install protobufjs@6.8.4 -g
+	npm install @egret/protobuf -g
+
+	2.使用
+
+	# 假设用户有个名为 egret-project 的白鹭项目(PS：laya项目也一样，这个名字不重要)
+	cd egret-project
+	# 将代码和项目结构拷贝至项目中
+	pb-egret add
+	# 将 protofile 文件放在 egret-project/protobuf/protofile 文件夹中
+	pb-egret generate
+	# 文件将会生成到 protobuf/bundles 文件夹中
+
+	由于是Layaair的ts项目，当执行 pb-egret add 的时候，会提示不是Egret的项目。
+
+	不要紧，不用理会，它还是会照样生成几个文件夹的。
+
+	就是protobuf文件夹。
+
+	然后，把tsconfig.json改动一下，引入生成的ts文件。
+	 "include": [
+	    "src",
+	    "libs",
+	    "protobuf/**/*.d.ts"
+	  ],
+
+	然后修改index.html文件，引入js。
+	<script type="text/javascript" src="../protobuf/library/protobuf-library.js"></script>
+	<script type="text/javascript" src="../protobuf/bundles/protobuf-bundles.js"></script>
+
+
+
+B) Protobuf-Laya
+https://github.com/bjfumac/Protobuf-Laya

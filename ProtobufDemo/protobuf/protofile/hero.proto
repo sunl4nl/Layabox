@@ -1,0 +1,167 @@
+package game.war;
+// 英雄信息
+message HeroInfo
+{
+	required uint32	hero_id								= 1;	// 英雄ID
+	required uint32	model_id							= 2;	// 模型id
+	required uint32	fashion_id							= 3;	// 时装id
+	required uint32 level								= 4;	// 等级
+	repeated uint32	equipment_list						= 5;	// 装备列表
+	repeated uint32	skill_list							= 6;	// 技能列表
+	repeated uint32 weapon_id							= 7;	// 武器
+	required uint32 star								= 8;	// 星级
+	required uint32 stairs								= 9;	// 阶级
+	required uint32 exp									= 10;	// 经验
+}
+
+// 客户端选择初始英雄
+message CMSG_SelectInitializedHero_Req
+{
+	required uint32 id									= 1;	// InitialHero.xlsx 中的 id字段
+}
+
+// 客户端选择初始英雄结果
+message SMSG_SelectInitializedHero_Resp
+{
+	required uint32 hero_id								= 1;	// 英雄id
+}
+
+// 客户端请求解锁英雄
+message CMSG_UnlockHero_Req
+{
+	required uint32 hero_id									= 1;	// Unit.xlsx 中的 unit_id字段
+}
+
+// 客户端请求解锁英雄结果
+message SMSG_UnlockHero_Resp
+{
+	required uint32 hero_id								= 1;	// 英雄id
+}
+
+// 获得新英雄
+message SMSG_AddHero_Ntf
+{
+	required HeroInfo info								= 1;	// 英雄信息
+}
+
+// 英雄升星请求
+message CMSG_HeroStarLevelup_Req
+{
+	required uint32 hero_id									= 1;	// Unit.xlsx 中的 unit_id字段
+}
+
+// 英雄升星结果
+message SMSG_HeroStarLevelup_Resp
+{
+	required uint32 hero_id								= 1;	// 英雄id
+	required uint32 hero_star							= 2;	// 英雄星级
+}
+
+// 合成英雄升级所需要的装备请求
+message CMSG_CompoundHeroUpgradeEquip_Req
+{
+	required uint32 equip_id								= 1;
+	required uint32 hero_id									= 2;
+}
+
+// 合成英雄升级所需要的装备结果
+message SMSG_CompoundHeroUpgradeEquip_Resp
+{
+	required uint32 result									= 1;
+	required uint32 hero_id									= 2;
+	repeated uint32 equip_list								= 3;
+}
+
+// 英雄升阶请求
+message CMSG_HeroUpgradeStairs_Req
+{
+	required uint32 hero_id									= 1;
+}
+
+// 英雄升阶结果
+message SMSG_HeroUpgradeStairs_Resp
+{
+	required uint32 hero_id								= 1;	// 英雄id
+	required uint32 hero_stairs							= 2;	// 英雄阶级
+	repeated uint32 equip_list							= 3;
+}
+
+// 请求升级单位
+message CMSG_UnitLevelingUp_Req
+{
+	required uint32	type								= 1;	// 升级单位类型 详见 UnitType_*
+	required uint32	id									= 2;	// 英雄、机关等id
+	required uint32 level								= 3;	// 请求升几级
+}
+
+// 回应单位升级
+message SMSG_UnitLevelingUp_Resp
+{
+	required uint32	type								= 1;	// 升级单位类型 详见 UnitType_*
+	required uint32 id									= 2;	// 英雄、机关等id
+	optional uint32 exp									= 3;	// 最新经验
+	optional uint32 level								= 4;	// 最新等级
+	optional uint32 prison_level						= 5;	// 最新监狱等级
+	optional uint32 prison_exp							= 6;	// 最新监狱经验
+	optional uint32 prison_tech_points					= 7;	// 最新监狱科技点数
+}
+
+// 英雄设定
+message CMSG_HeroSetting_Req
+{
+	required uint32	hero_id															= 1;	// 英雄id
+	required uint32	operation_type													= 2;	// 操作类型
+	required uint32	id																= 3;	// 根据不同操作类型 其含义不同
+	required uint32 position														= 4;	// 位置编号
+}
+
+// 英雄设定
+message SMSG_HeroSetting_Resp
+{
+	required uint32	hero_id															= 1;	// 英雄id
+	required uint32	operation_type													= 2;	// 操作类型
+	required uint32	id																= 3;	// 根据不同操作类型 其含义不同
+	required uint32 position														= 4;	// 位置编号
+}
+
+// 选择出战英雄阵容
+message CMSG_SelectHeroByBattleFormation_Req
+{
+	required uint32	hero_id															= 1;	// 出战英雄id
+}
+
+// 选择出战英雄阵容
+message SMSG_SelectHeroByBattleFormation_Resp
+{
+	required uint32	hero_id															= 1;	// 出战英雄id
+}
+
+message CMSG_HeroSkillLevelingUp_Req
+{
+	required uint32	hero_id															= 1;	// 英雄id
+	required uint32 skill_id														= 2;	// 技能id
+}
+
+message SMSG_HeroSkillLevelingUp_Resp
+{
+	required uint32	hero_id															= 1;	// 英雄id
+	required uint32 skill_id														= 2;	// 技能id
+	required uint32 level															= 3;	// 英雄技能升级后的等级
+}
+
+message CMSG_ResetHeroSkillLevel_Req
+{
+	required uint32	hero_id															= 1;	// 英雄id
+}
+
+message SMSG_ResetHeroSkillLevel_Resp
+{
+	required uint32	hero_id															= 1;	// 英雄id
+	required uint32 skill_point														= 2;	// 英雄剩下的技能点
+}
+
+message SMSG_HeroSkillInfo_Ntf
+{
+	required uint32 hero_id															= 1;	// 英雄id
+	repeated uint32 active_skills													= 3;	// 新激活的技能
+}
