@@ -78,10 +78,42 @@ class LayaAirSample
         t.changeText("text changed.");        
     }
 
+    //sample load asset{json}
+    public loadJson()
+    {   
+        console.log("loadJson()");
+        let assets:any[] = [];
+        assets.push({url: "res/tsconfig.json", type: Laya.Loader.JSON});
+        Laya.loader.load(assets, Laya.Handler.create(this, (result:any)=>
+        {       
+            if(typeof(result) == "boolean")
+            {   
+                logger.log("boolean");
+                if(result)
+                {
+                    let json:JSON = Laya.loader.getRes("res/tsconfig.json");
+                    logger.log(json["exclude"][0]);
+                    let str = JSON.stringify(json);
+                    logger.log(str);
+                }
+                
+            }
+            else if(typeof(result) == "string")
+            {
+                logger.log("string");
+            }
+            else if(result instanceof ArrayBuffer)
+            {
+                logger.log("ArrayBuffer");
+            }
+        }));
+    }
+
 }
 let inst:LayaAirSample = new LayaAirSample();
 inst.loadImage();
 inst.parse("hello");
 inst.changeText();
+inst.loadJson();
 
 

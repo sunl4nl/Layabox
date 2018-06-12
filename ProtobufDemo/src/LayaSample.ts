@@ -6,7 +6,7 @@ function log(msg:any)
     {
         msg = JSON.stringify(msg);
     }
-    document.body.innerHTML += msg + "<br>\n";
+    // document.body.innerHTML += msg + "<br>\n";
     console.log(``);
     console.log(msg);
 
@@ -73,6 +73,14 @@ class GameMain{
         let msgHero = game.war.HeroInfo.decode(encodBytes);
         log(msgHero);
         log(msgHero.exp);
+
+        let text:Laya.Text = new Laya.Text();
+        text.text = "msgHero.exp = " + msgHero.exp;
+        text.color = "#ff9900";
+        text.fontSize = 25;
+        text.pos(Laya.Browser.width / 4, Laya.Browser.height / 4);
+        Laya.stage.addChild(text);
+
     }
 }
 new GameMain();

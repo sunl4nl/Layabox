@@ -56,9 +56,33 @@ class LayaAirSample {
         //后面只是更新文字内容，使用changeText能提高性能
         t.changeText("text changed.");
     }
+    //sample load asset{json}
+    loadJson() {
+        console.log("loadJson()");
+        let assets = [];
+        assets.push({ url: "res/tsconfig.json", type: Laya.Loader.JSON });
+        Laya.loader.load(assets, Laya.Handler.create(this, (result) => {
+            if (typeof (result) == "boolean") {
+                logger.log("boolean");
+                if (result) {
+                    let json = Laya.loader.getRes("res/tsconfig.json");
+                    logger.log(json["exclude"][0]);
+                    let str = JSON.stringify(json);
+                    logger.log(str);
+                }
+            }
+            else if (typeof (result) == "string") {
+                logger.log("string");
+            }
+            else if (result instanceof ArrayBuffer) {
+                logger.log("ArrayBuffer");
+            }
+        }));
+    }
 }
 let inst = new LayaAirSample();
 inst.loadImage();
 inst.parse("hello");
 inst.changeText();
+inst.loadJson();
 //# sourceMappingURL=LayaAirSample.js.map

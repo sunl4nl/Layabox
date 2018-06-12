@@ -28,9 +28,14 @@ class GameMain {
         fairygui.UIPackage.addPackage("res/Bag");
 
         new MainPanel();
+        //setTimeout(function() {
+        //    if(Laya.Browser.window["conch"])
+        //    {
+        //        Laya.Browser.window.loadingView.loading(100);
+        //    }
+        //}, 3000);
     }
 }
-
 
 
 new GameMain();
